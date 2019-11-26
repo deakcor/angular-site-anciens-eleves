@@ -1,0 +1,23 @@
+<div class="toolbar" role="banner">
+    <img
+      width="25"
+      alt="EISTI Logo"
+      [src]="image"
+    />
+    <a href routerLink="/">Accueil</a>
+    <a href routerLink="/etudiant" *ngIf="connexion.isconnected()">Etudiants</a>
+      <div class="spacer"></div>
+    
+    <a aria-label="connexion" href routerLink="/connexion" title="connexion" *ngIf="!connexion.connected && router.url!='/connexion'">
+      
+      <mat-icon aria-hidden="false" aria-label="connexion">exit_to_app</mat-icon>
+      <span>Connexion</span>
+      
+    </a>
+    <a aria-label="deconnexion" (click)="connexion.disconnect()" title="deconnexion" *ngIf="connexion.connected">
+      
+      <mat-icon aria-hidden="false" aria-label="deconnexion">close</mat-icon>
+      <span>Deconnexion</span>
+      
+    </a>
+  </div>

@@ -1,28 +1,34 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { EtudiantService } from './etudiant.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConnexionService {
 
-  connected:boolean;
+  private connected:boolean;
+  private id:number=-1
 
-  constructor(private router:Router) { 
+  constructor(public etuServ:EtudiantService, private router:Router) { 
     this.connected=false;
   }
 
   disconnect() {
     this.connected=false;
+    this.id=-1;
     if (!this.connected){
       this.router.navigate(['']);
     }
   }
 
-  
+  getid(){
+    return this.id;
+  }
 
-  connect(){
-    this.connected=true;
+  connect(pseudo,pwd){
+    this.id=this.etuServ.match_idpwd(pseudo,pwd)
+    this.connected=(this.id!=-1);
     
   }
 

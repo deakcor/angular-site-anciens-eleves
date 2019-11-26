@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import {EtudiantService} from '../services/etudiant.service';
 import {MatSort} from '@angular/material/sort';
+import { ConnexionService } from '../services/connexion.service';
 
 
 @Component({
@@ -11,8 +12,8 @@ import {MatSort} from '@angular/material/sort';
 })
 export class EtudiantComponent implements OnInit {
   id:number=-1
-  displayedColumns: string[] = ['nom', 'prenom', 'promo', 'entreprise'];
-  constructor(public etuServ:EtudiantService, private route: ActivatedRoute){
+  displayedColumns: string[] = ['nom', 'prenom', 'promo', 'entreprise','details'];
+  constructor(public connexion:ConnexionService,public etuServ:EtudiantService, private route: ActivatedRoute){
     console.log(etuServ.etudiants);
     
   }
@@ -22,6 +23,7 @@ export class EtudiantComponent implements OnInit {
       p=>{
         try{
         this.id=+p['id'];
+        console.log(this.connexion.getid())
       }catch (e){
         this.id=-1;
       }

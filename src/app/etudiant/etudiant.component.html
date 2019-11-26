@@ -7,29 +7,10 @@
     
 
   </div>
-  <div class="card-container" *ngIf="id==-1">
-    <a class="card"  href [routerLink]="['/etudiant',i]"  *ngFor="let e of etuServ.etudiants; let i=index">
-      
-        <span>
-          {{e.nom}}
-        </span>
-         <span>
-          {{e.prenom}}
-        </span>
-        <span>
-            {{e.promo}}
-          </span>
-          <span>
-              {{e.entreprise}}
-            </span>
-
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>    </a>
-      
-  </div>
 
 
   
-    <table mat-table [dataSource]="etuServ.dataSource" matSort class="mat-elevation-z8">
+    <table mat-table [dataSource]="etuServ.dataSource" matSort class="mat-elevation-z8" *ngIf="id==-1">
     
       <!-- Position Column -->
       <ng-container matColumnDef="nom">
@@ -46,13 +27,26 @@
       <!-- Weight Column -->
       <ng-container matColumnDef="promo">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Promotion </th>
-        <td mat-cell *matCellDef="let element"> {{element.promo}} </td>
+        <td mat-cell *matCellDef="let element"><span *ngIf="element.data_allowed.indexOf('promo')!=-1; else elseBlock">{{element.promo}} </span>
+          <ng-template #elseBlock><i class="material-icons">
+            visibility_off
+            </i></ng-template> </td>
       </ng-container>
     
       <!-- Symbol Column -->
       <ng-container matColumnDef="entreprise">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Entreprise </th>
-        <td mat-cell *matCellDef="let element"> {{element.entreprise}} </td>
+        <td mat-cell *matCellDef="let element" ><span *ngIf="element.data_allowed.indexOf('entreprise')!=-1; else elseBlock">{{element.entreprise}} </span>
+          <ng-template #elseBlock><i class="material-icons">
+            visibility_off
+            </i></ng-template> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Détails </th>
+        <td mat-cell *matCellDef="let element;let i=index"> <a class=" " href [routerLink]="['/etudiant',i]"><i class="material-icons">
+          arrow_right_alt
+          </i></a> </td>
       </ng-container>
     
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -64,6 +58,6 @@
 
   <div class="card highlight-card card-small"  *ngIf="id!=-1">
 
-      <span>{{etuServ.etudiants[id].nom}}</span>
+      <span>{{etuServ.etudiants[id].nom}} {{etuServ.etudiants[id].prenom}}</span>
 
     </div>

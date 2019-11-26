@@ -8,14 +8,20 @@
     <a href routerLink="/etudiant" *ngIf="connexion.isconnected()">Etudiants</a>
       <div class="spacer"></div>
     
-    <a aria-label="connexion" href routerLink="/connexion" title="connexion" *ngIf="!connexion.connected && router.url!='/connexion'">
+    <a aria-label="connexion" href routerLink="/connexion" title="connexion" *ngIf="!connexion.isconnected() && router.url!='/connexion'">
       
       <mat-icon aria-hidden="false" aria-label="connexion">exit_to_app</mat-icon>
       <span>Connexion</span>
       
     </a>
-    <a aria-label="deconnexion" (click)="connexion.disconnect()" title="deconnexion" *ngIf="connexion.connected">
+    <a aria-label="profil" href [routerLink]="['/etudiant',connexion.getid()]" title="profil" *ngIf="connexion.connected">
+
+      <mat-icon aria-hidden="false" aria-label="person">person</mat-icon>
+      <span>Profil</span>
       
+    </a>
+    <a aria-label="deconnexion" (click)="connexion.disconnect()" title="deconnexion" *ngIf="connexion.isconnected()">
+
       <mat-icon aria-hidden="false" aria-label="deconnexion">close</mat-icon>
       <span>Deconnexion</span>
       

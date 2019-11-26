@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {User} from '../interface/user'
 import { ConnexionService } from '../services/connexion.service';
 import {Router} from "@angular/router"
+
 @Component({
   selector: 'app-connexion',
   templateUrl: './connexion.component.html',
@@ -9,6 +10,7 @@ import {Router} from "@angular/router"
 })
 export class ConnexionComponent implements OnInit {
   identification:User;
+  error:boolean=false;
   constructor(public connexion:ConnexionService,private router: Router) {
    }
 
@@ -21,10 +23,16 @@ export class ConnexionComponent implements OnInit {
 
   envoie(){
     console.log(this.identification)
-    this.connexion.connect()
+    this.connexion.connect(this.identification.id,this.identification.pwd)
     if (this.connexion.isconnected()){
       this.router.navigate(['/etudiant']);
+    }else{
+      this.error=true;
     }
    
+  }
+
+  inscription(){
+    
   }
 }

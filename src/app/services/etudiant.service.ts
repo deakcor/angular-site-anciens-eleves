@@ -9,7 +9,9 @@ export interface Etudiant {
   prenom: string;
   promo: string;
   entreprise: string;
-  data_allowed:Array<string>;
+  showpromo:boolean;
+  showentreprise:boolean;
+  admin:boolean;
 }
 
 @Injectable({
@@ -23,11 +25,25 @@ export class EtudiantService {
     
     this.http.get<Array<Etudiant>>("/assets/datas/etudiant.json").subscribe(
       etu=>{
-        this.etudiants=etu;
-        this.dataSource=  new MatTableDataSource(this.etudiants);
+        this.etudiants=etu.slice(0);
+        etu.shift()
+        this.dataSource=  new MatTableDataSource(etu);
         console.log(etu);
       }
     )
+  }
+
+  createstudent(data){
+    let exist=false
+    for (let k in this.etudiants){
+      if (this.etudiants[k].pseudo==data.pseudo && this.etudiants[k].mdp==data.mdp){
+        this.etudiants[k]=data
+        exist=true
+      }
+    }
+    if (!exist){
+      this.etudiants.push(data)
+    }
   }
 
   match_idpwd(pseudo,pwd){

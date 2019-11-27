@@ -62,6 +62,13 @@ html {
     margin-top: 16px;
   }
 
+  .student-content{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 16px;
+  }
+
   .card {
     border-radius: 4px;
     border: 1px solid #eee;
@@ -99,6 +106,10 @@ html {
     cursor: pointer;
   }
 
+  .btn-small{
+    padding: 4px;
+  }
+
   .button:hover {
     transform: translateY(-3px);
     box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -118,6 +129,10 @@ html {
 
   .danger{
     color:#dc3545;
+  }
+
+  .success{
+    color:#28a745;
   }
 
   .small{

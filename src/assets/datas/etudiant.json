@@ -1,3 +1,4 @@
 [
-  {"pseudo":"Eliotto","mdp":"a","nom":"Villegas","prenom":"Eliott","promo":"2015","entreprise":"Total","data_allowed":["promo"]}
+  {"pseudo":"admin","mdp":"admin","nom":"admin","prenom":"admin","promo":"","entreprise":"","showpromo":false,"showentreprise":false,"admin":true},
+  {"pseudo":"Eliotto","mdp":"a","nom":"Villegas","prenom":"Eliott","promo":"2015","entreprise":"Total","showpromo":true,"showentreprise":true,"admin":false}
 ]

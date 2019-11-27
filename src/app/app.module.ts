@@ -17,6 +17,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 
 
 import { ConnexionService } from './services/connexion.service';
+import { CreateEtudiantComponent } from './create-etudiant/create-etudiant.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatInputModule, MatRadioModule, MatCheckboxModule, MatCardModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -25,8 +28,13 @@ import { ConnexionService } from './services/connexion.service';
     ConnexionComponent,
     FooterComponent,
     TopbarComponent,
-    EtudiantComponent
+    EtudiantComponent,
+    CreateEtudiantComponent
     
+  ],
+
+  entryComponents: [
+    CreateEtudiantComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +45,12 @@ import { ConnexionService } from './services/connexion.service';
     BrowserAnimationsModule,
     MatIconModule,
     MatTableModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatDialogModule,
+    MatInputModule,
+    MatRadioModule,
+    MatCheckboxModule,
+    MatCardModule
   ],
   providers: [ConnexionService],
   bootstrap: [AppComponent]

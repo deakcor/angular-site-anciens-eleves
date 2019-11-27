@@ -12,7 +12,9 @@ const routes: Routes = [
   {path:'',component:AccueilComponent},
   {path:'etudiant/:id',component:EtudiantComponent, canActivate:[AuthGuard]},
   {path:'etudiant',component:EtudiantComponent, canActivate:[AuthGuard]},
-  {path:'connexion',component:ConnexionComponent}
+  {path:'connexion',component:ConnexionComponent},
+  { path: '404', component: AccueilComponent },
+  { path: '**', redirectTo: '404' }
 ];
 
 @NgModule({

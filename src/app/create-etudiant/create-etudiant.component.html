@@ -14,10 +14,10 @@
     </mat-form-field>
     <p>Entrez votre nom et votre prénom</p>
     <mat-form-field>
-      <input matInput [(ngModel)]="data.nom" placeholder="Nom" class="form-control">
+      <input matInput [(ngModel)]="data.nom" placeholder="Nom" class="form-control" required>
     </mat-form-field>
     <mat-form-field>
-      <input matInput [(ngModel)]="data.prenom" placeholder="Prénom" class="form-control">
+      <input matInput [(ngModel)]="data.prenom" placeholder="Prénom" class="form-control" required>
     </mat-form-field>
     <p>Entrez votre promotion</p>
     <mat-form-field>
@@ -32,7 +32,8 @@
     </mat-form-field>
 
       <mat-checkbox [(ngModel)]="data.showentreprise">Afficher publiquement votre entreprise</mat-checkbox>
-
+      <mat-checkbox [(ngModel)]="rgpd">J'ai pris connaissance et j'accepte la règle <a target="_blank" href routerLink="/rgpd">RGPD</a></mat-checkbox>
+      <mat-error *ngIf="!rgpd && invalid">Vous devez accepter la RGPD</mat-error>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onNoClick()" class="button primary btn-small">Annuler</button>

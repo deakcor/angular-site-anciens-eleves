@@ -5,6 +5,7 @@ import { AccueilComponent } from './accueil/accueil.component';
 import { EtudiantComponent } from './etudiant/etudiant.component';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { AuthGuard } from './services/auth.guard';
+import { RgpdComponent } from './rgpd/rgpd.component';
 
 
 
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path:'etudiant/:id',component:EtudiantComponent, canActivate:[AuthGuard]},
   {path:'etudiant',component:EtudiantComponent, canActivate:[AuthGuard]},
   {path:'connexion',component:ConnexionComponent},
+  {path:'rgpd',component:RgpdComponent},
   { path: '404', component: AccueilComponent },
   { path: '**', redirectTo: '404' }
 ];

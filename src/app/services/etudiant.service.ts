@@ -26,7 +26,8 @@ export class EtudiantService {
     this.http.get<Array<Etudiant>>("/assets/datas/etudiant.json").subscribe(
       etu=>{
         this.etudiants=etu.slice(0);
-        etu.shift()
+        etu=etu.filter(k=>(!k.admin));
+        
         this.dataSource=  new MatTableDataSource(etu);
         console.log(etu);
       }
@@ -44,6 +45,7 @@ export class EtudiantService {
     if (!exist){
       this.etudiants.push(data)
     }
+    this.dataSource=  new MatTableDataSource(this.etudiants.filter(k=>(!k.admin)));
   }
 
   match_idpwd(pseudo,pwd){

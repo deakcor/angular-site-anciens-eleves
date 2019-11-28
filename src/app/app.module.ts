@@ -20,6 +20,7 @@ import { ConnexionService } from './services/connexion.service';
 import { CreateEtudiantComponent } from './create-etudiant/create-etudiant.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatInputModule, MatRadioModule, MatCheckboxModule, MatCardModule} from '@angular/material';
+import { RgpdComponent } from './rgpd/rgpd.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {MatInputModule, MatRadioModule, MatCheckboxModule, MatCardModule} from '
     FooterComponent,
     TopbarComponent,
     EtudiantComponent,
-    CreateEtudiantComponent
+    CreateEtudiantComponent,
+    RgpdComponent
     
   ],
 

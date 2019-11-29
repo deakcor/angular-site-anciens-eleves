@@ -14,30 +14,39 @@ export class StatsComponent implements OnInit {
   chartOptions: Highcharts.Options = {
     chart: {
       backgroundColor: '#00000000',
-      plotBackgroundColor: null,
-      plotBorderWidth: null,
-      plotShadow: false,
-      type: 'pie'
+      type: 'column'
     },
     title: {
-      text: 'Proportion de promotions'
+      text: 'Proportion des promotions'
     },
-    tooltip: {
-      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    xAxis: {
+      type: 'category'
+    },
+    yAxis: {
+      title: {
+        text: "Nombre d'étudiants par promotion"
+      }
+    },
+    legend: {
+      enabled: false
     },
     plotOptions: {
-      pie: {
-        allowPointSelect: true,
-        cursor: 'pointer',
+      series: {
+        borderWidth: 0,
         dataLabels: {
           enabled: true,
-          format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+          format: '{point.y} étudiants'
         }
       }
     },
+  
+    tooltip: {
+      headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+      pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b><br/>'
+    },
     series: [{
       data: this.etuServ.promos,
-      type: 'pie',
+      type: 'column',
       name:"Promotions"
     }],
     credits:{

@@ -1,6 +1,7 @@
 [
   {"pseudo":"admin","mdp":"admin","nom":"admin","prenom":"admin","promo":"","entreprise":"","showpromo":false,"showentreprise":false,"admin":true},
   {"pseudo":"Eliotto","mdp":"a","nom":"Villegas","prenom":"Eliott","promo":"2015","entreprise":"Total","showpromo":true,"showentreprise":true,"admin":false},
+  {"pseudo":"v","mdp":"a","nom":"Darcemont","prenom":"Vincent","promo":"2019","entreprise":"Omega","showpromo":true,"showentreprise":true,"admin":false},
   {"pseudo":"test","mdp":"test","nom":"Mapromo","prenom":"estcaché","promo":"2018","entreprise":"CGI","showpromo":false,"showentreprise":true,"admin":false},
   {"pseudo":"test2","mdp":"test","nom":"Moneentreprise","prenom":"estcaché","promo":"2018","entreprise":"CGI","showpromo":true,"showentreprise":false,"admin":false},
   {"pseudo":"test3","mdp":"test","nom":"Tout","prenom":"estcaché","promo":"2018","entreprise":"Terega","showpromo":false,"showentreprise":false,"admin":false}

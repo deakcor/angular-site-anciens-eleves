@@ -43,7 +43,7 @@ export class EtudiantService {
       let id=-1
       let ide=-1
       for (let i=0;i<this.promos.length;i++){
-        if (this.promos[i]["name"]==etu[k].promo){
+        if (this.promos[i]["x"]==parseInt(etu[k].promo)){
             id=i;
         }
       }
@@ -53,7 +53,7 @@ export class EtudiantService {
         }
       }
       if (id==-1){
-        this.promos.push({name:etu[k].promo,y:1})
+        this.promos.push({x:parseInt(etu[k].promo),y:1,name:etu[k].promo})
       }else{
         this.promos[id]["y"]+=1
       }

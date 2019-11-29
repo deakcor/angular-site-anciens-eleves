@@ -26,6 +26,15 @@ export class ConnexionService {
     return this.id;
   }
 
+  isadmin(){
+    if (this.connected){
+      return this.etuServ.etudiants[this.id].admin
+    }else{
+      return false
+    }
+    
+  }
+
   connect(pseudo,pwd){
     this.id=this.etuServ.match_idpwd(pseudo,pwd)
     this.connected=(this.id!=-1);

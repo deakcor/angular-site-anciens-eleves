@@ -22,6 +22,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {MatInputModule, MatRadioModule, MatCheckboxModule, MatCardModule} from '@angular/material';
 import { RgpdComponent } from './rgpd/rgpd.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import {  HighchartsChartModule } from 'highcharts-angular';
+import { StatsComponent } from './stats/stats.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { NotfoundComponent } from './notfound/notfound.component';
     EtudiantComponent,
     CreateEtudiantComponent,
     RgpdComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    StatsComponent
     
   ],
 
@@ -54,7 +57,8 @@ import { NotfoundComponent } from './notfound/notfound.component';
     MatInputModule,
     MatRadioModule,
     MatCheckboxModule,
-    MatCardModule
+    MatCardModule,
+    HighchartsChartModule
   ],
   providers: [ConnexionService],
   bootstrap: [AppComponent]

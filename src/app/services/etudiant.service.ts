@@ -21,13 +21,38 @@ export class EtudiantService {
 
   etudiants:Array<Etudiant>;
   dataSource;
+  promos:Array<object>=[]
+  entreprises:Array<object>=[]
   constructor(private http:HttpClient){
     
     this.http.get<Array<Etudiant>>("/assets/datas/etudiant.json").subscribe(
       etu=>{
         this.etudiants=etu.slice(0);
         etu=etu.filter(k=>(!k.admin));
-        
+        for (let k=0;k<etu.length;k++){
+          let id=-1
+          let ide=-1
+          for (let i=0;i<this.promos.length;i++){
+            if (this.promos[i]["name"]==etu[k].promo){
+                id=i;
+            }
+          }
+          for (let i=0;i<this.entreprises.length;i++){
+            if (this.entreprises[i]["name"]==etu[k].entreprise){
+                ide=i;
+            }
+          }
+          if (id==-1){
+            this.promos.push({name:etu[k].promo,y:1})
+          }else{
+            this.promos[id]["y"]+=1
+          }
+          if (ide==-1){
+            this.entreprises.push({name:etu[k].entreprise,y:1})
+          }else{
+            this.entreprises[id]["y"]+=1
+          }
+        }
         this.dataSource=  new MatTableDataSource(etu);
         console.log(etu);
       }

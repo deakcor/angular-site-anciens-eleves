@@ -61,11 +61,11 @@
       <span>{{etuServ.etudiants[id].nom}} {{etuServ.etudiants[id].prenom}}</span>
 
     </div>
-    <div class="student-content" *ngIf="!etuServ.etudiants[connexion.getid()].admin || connexion.getid()!=id">
+    <div class="student-content" *ngIf="!connexion.isadmin() || connexion.getid()!=id">
     <mat-card >
       <mat-card-header>
         <mat-card-title>Entreprise</mat-card-title>
-        <mat-card-subtitle *ngIf="etuServ.etudiants[id].showentreprise || connexion.getid()==id || etuServ.etudiants[connexion.getid()].admin; else elseEntreprise">{{etuServ.etudiants[id].entreprise}}</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="etuServ.etudiants[id].showentreprise || connexion.getid()==id || connexion.isadmin(); else elseEntreprise">{{etuServ.etudiants[id].entreprise}}</mat-card-subtitle>
         <ng-template #elseEntreprise><i class="material-icons">
           visibility_off
           </i></ng-template>
@@ -75,7 +75,7 @@
     <mat-card>
       <mat-card-header>
         <mat-card-title>Promotion</mat-card-title>
-        <mat-card-subtitle *ngIf="etuServ.etudiants[id].showpromo || connexion.getid()==id || etuServ.etudiants[connexion.getid()].admin; else elsePromo">{{etuServ.etudiants[id].promo}}</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="etuServ.etudiants[id].showpromo || connexion.getid()==id || connexion.isadmin(); else elsePromo">{{etuServ.etudiants[id].promo}}</mat-card-subtitle>
         <ng-template #elsePromo><i class="material-icons">
           visibility_off
           </i></ng-template>
@@ -83,6 +83,6 @@
     </mat-card>
   </div>
   <div class="student-content" >
-    <button (click)="modifier()" class="button primary" *ngIf="connexion.getid()==id || etuServ.etudiants[connexion.getid()].admin">Modifier le compte</button>
-    <button (click)="supprimer()" class="button primary" *ngIf="connexion.getid()==id || etuServ.etudiants[connexion.getid()].admin">Supprimer le compte</button>
+    <button (click)="modifier()" class="button primary" *ngIf="connexion.getid()==id || connexion.isadmin()">Modifier le compte</button>
+    <button (click)="supprimer()" class="button primary" *ngIf="connexion.getid()==id || connexion.isadmin()">Supprimer le compte</button>
   </div>

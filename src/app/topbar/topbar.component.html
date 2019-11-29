@@ -8,6 +8,7 @@
     
     <a href routerLink="/accueil">Accueil</a>
     <a href routerLink="/etudiant" *ngIf="connexion.isconnected()">Etudiants</a>
+    <a href routerLink="/statistiques" *ngIf="connexion.isadmin()">Statistiques</a>
       <div class="spacer"></div>
     
     <a aria-label="connexion" href routerLink="/connexion" title="connexion" *ngIf="!connexion.isconnected() && router.url!='/connexion'">

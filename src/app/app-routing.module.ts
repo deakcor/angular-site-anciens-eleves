@@ -7,6 +7,7 @@ import { ConnexionComponent } from './connexion/connexion.component';
 import { AuthGuard } from './services/auth.guard';
 import { RgpdComponent } from './rgpd/rgpd.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { StatsComponent } from './stats/stats.component';
 
 
 
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path:'etudiant',component:EtudiantComponent, canActivate:[AuthGuard]},
   {path:'connexion',component:ConnexionComponent},
   {path:'rgpd',component:RgpdComponent},
+  {path:'statistiques',component:StatsComponent, canActivate:[AuthGuard]},
   { path: '404', component: NotfoundComponent },
   { path: '**', redirectTo: '404' },
   { path: '', redirectTo: 'accueil',pathMatch: 'full' }

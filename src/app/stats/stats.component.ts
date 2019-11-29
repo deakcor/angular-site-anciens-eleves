@@ -23,6 +23,7 @@ export class StatsComponent implements OnInit {
       type: 'category'
     },
     yAxis: {
+      allowDecimals:false,
       title: {
         text: "Nombre d'étudiants par promotion"
       }
@@ -35,7 +36,7 @@ export class StatsComponent implements OnInit {
         borderWidth: 0,
         dataLabels: {
           enabled: true,
-          format: '{point.y} étudiants'
+          format: '{point.y} étudiant(s)'
         }
       }
     },

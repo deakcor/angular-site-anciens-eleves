@@ -121,6 +121,10 @@ html {
     background-color: #1976d2;
   }
 
+  .secondary{
+    color : #888
+  }
+
   .cadre{
     padding:10px;
     display: flex;

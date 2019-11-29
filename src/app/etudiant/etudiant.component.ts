@@ -53,13 +53,17 @@ export class EtudiantComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-  modifier(): void {
+  modifier(rien:boolean=false): void {
     const dialogRef = this.dialog.open(CreateEtudiantComponent, {
       width: '600px',
-      data: {pseudo: this.etuServ.etudiants[this.id].pseudo, mdp: this.etuServ.etudiants[this.id].mdp,nom:this.etuServ.etudiants[this.id].nom,
+      data: !rien?{pseudo: this.etuServ.etudiants[this.id].pseudo, mdp: this.etuServ.etudiants[this.id].mdp,nom:this.etuServ.etudiants[this.id].nom,
         prenom:this.etuServ.etudiants[this.id].prenom,
         promo:this.etuServ.etudiants[this.id].promo,entreprise:this.etuServ.etudiants[this.id].entreprise,showpromo:this.etuServ.etudiants[this.id].showpromo,
         showentreprise:this.etuServ.etudiants[this.id].showentreprise}
+        :{pseudo: "", mdp: "",nom:"",
+        prenom:"",
+        promo:"",entreprise:"",showpromo:false,
+        showentreprise:false}
     });
 
     dialogRef.afterClosed().subscribe(result => {

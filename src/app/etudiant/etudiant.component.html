@@ -28,18 +28,21 @@
       <ng-container matColumnDef="promo">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Promotion </th>
         <td mat-cell *matCellDef="let element"><span *ngIf="element.showpromo; else elseBlock">{{element.promo}} </span>
-          <ng-template #elseBlock><i class="material-icons">
+          <ng-template #elseBlock>
+            <i class="material-icons secondary">
             visibility_off
-            </i></ng-template> </td>
+            </i><span class="secondary" *ngIf="element.pseudo==etuServ.etudiants[connexion.getid()].pseudo || connexion.isadmin()"> {{element.promo}}</span>
+          </ng-template> </td>
       </ng-container>
     
       <!-- Symbol Column -->
       <ng-container matColumnDef="entreprise">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Entreprise </th>
         <td mat-cell *matCellDef="let element" ><span *ngIf="element.showentreprise; else elseBlock">{{element.entreprise}} </span>
-          <ng-template #elseBlock><i class="material-icons">
+          <ng-template #elseBlock><i class="material-icons secondary">
             visibility_off
-            </i></ng-template> </td>
+            </i><span class="secondary" *ngIf="element.pseudo==etuServ.etudiants[connexion.getid()].pseudo || connexion.isadmin()"> {{element.entreprise}}</span>
+          </ng-template> </td>
       </ng-container>
 
       <ng-container matColumnDef="details">
@@ -52,8 +55,9 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-
-    
+    <div class="student-content" >
+    <button (click)="modifier(true)" class="button primary" *ngIf="id==-1 && connexion.isadmin()">Créer/Modifier un compte</button>
+  </div>
     <div  *ngIf="id!=-1">
 
   <div class="card highlight-card card-small">
@@ -65,20 +69,25 @@
     <mat-card >
       <mat-card-header>
         <mat-card-title>Entreprise</mat-card-title>
-        <mat-card-subtitle *ngIf="etuServ.etudiants[id].showentreprise || connexion.getid()==id || connexion.isadmin(); else elseEntreprise">{{etuServ.etudiants[id].entreprise}}</mat-card-subtitle>
-        <ng-template #elseEntreprise><i class="material-icons">
+        <mat-card-subtitle *ngIf="etuServ.etudiants[id].showentreprise; else elseEntreprise">{{etuServ.etudiants[id].entreprise}}</mat-card-subtitle>
+        <ng-template #elseEntreprise>
+            <mat-card-subtitle>
+          <i class="material-icons">
           visibility_off
-          </i></ng-template>
+          </i><span *ngIf="connexion.getid()==id || connexion.isadmin()"> {{etuServ.etudiants[id].entreprise}}</span>
+        </mat-card-subtitle></ng-template>
       </mat-card-header>
     </mat-card>
 
     <mat-card>
       <mat-card-header>
         <mat-card-title>Promotion</mat-card-title>
-        <mat-card-subtitle *ngIf="etuServ.etudiants[id].showpromo || connexion.getid()==id || connexion.isadmin(); else elsePromo">{{etuServ.etudiants[id].promo}}</mat-card-subtitle>
-        <ng-template #elsePromo><i class="material-icons">
+        <mat-card-subtitle *ngIf="etuServ.etudiants[id].showpromo; else elsePromo">{{etuServ.etudiants[id].promo}}</mat-card-subtitle>
+        <ng-template #elsePromo>
+            <mat-card-subtitle><i class="material-icons">
           visibility_off
-          </i></ng-template>
+          </i><span *ngIf="connexion.getid()==id || connexion.isadmin()"> {{etuServ.etudiants[id].promo}}</span>
+        </mat-card-subtitle></ng-template>
       </mat-card-header>
     </mat-card>
   </div>

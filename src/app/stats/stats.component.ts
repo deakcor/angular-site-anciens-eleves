@@ -37,7 +37,8 @@ export class StatsComponent implements OnInit {
     },
     series: [{
       data: this.etuServ.promos,
-      type: 'pie'
+      type: 'pie',
+      name:"Promotions"
     }],
     credits:{
       enabled:false
@@ -72,7 +73,8 @@ export class StatsComponent implements OnInit {
     },
     series: [{
       data: this.etuServ.entreprises,
-      type: 'pie'
+      type: 'pie',
+      name:"Entreprises"
     }],
     credits:{
       enabled:false

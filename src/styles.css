@@ -135,6 +135,11 @@ html {
     color:#28a745;
   }
 
+  .bold{
+    font-weight: bold;
+    font-size: 16px;
+  }
+
   .small{
     margin: 0;
     padding:4px;

@@ -6,17 +6,19 @@ import { EtudiantComponent } from './etudiant/etudiant.component';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { AuthGuard } from './services/auth.guard';
 import { RgpdComponent } from './rgpd/rgpd.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 
 
 const routes: Routes = [
-  {path:'',component:AccueilComponent},
+  {path:'accueil',component:AccueilComponent},
   {path:'etudiant/:id',component:EtudiantComponent, canActivate:[AuthGuard]},
   {path:'etudiant',component:EtudiantComponent, canActivate:[AuthGuard]},
   {path:'connexion',component:ConnexionComponent},
   {path:'rgpd',component:RgpdComponent},
-  { path: '404', component: AccueilComponent },
-  { path: '**', redirectTo: '404' }
+  { path: '404', component: NotfoundComponent },
+  { path: '**', redirectTo: '404' },
+  { path: '', redirectTo: 'accueil',pathMatch: 'full' }
 ];
 
 @NgModule({

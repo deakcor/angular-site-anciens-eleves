@@ -18,7 +18,7 @@ export class ConnexionService {
     this.connected=false;
     this.id=-1;
     if (!this.connected){
-      this.router.navigate(['']);
+      this.router.navigate(['/accueil']);
     }
   }
 

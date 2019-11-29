@@ -1,12 +1,12 @@
 <div class="toolbar" role="banner">
-    <a href routerLink="/">
+    <a href routerLink="/accueil">
       <img
       width="25"
       alt="EISTI Logo"
       [src]="image"
     /></a>
     
-    <a href routerLink="/">Accueil</a>
+    <a href routerLink="/accueil">Accueil</a>
     <a href routerLink="/etudiant" *ngIf="connexion.isconnected()">Etudiants</a>
       <div class="spacer"></div>
     

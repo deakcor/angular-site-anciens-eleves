@@ -15,7 +15,7 @@
       <!-- Position Column -->
       <ng-container matColumnDef="nom">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom </th>
-        <td mat-cell *matCellDef="let element"> {{element.nom}} <span></span> </td>
+        <td mat-cell *matCellDef="let element"> {{element.nom}} <span class="success bold" *ngIf="element.pseudo==etuServ.etudiants[connexion.getid()].pseudo">(vous)</span> </td>
       </ng-container>
     
       <!-- Name Column -->

@@ -21,6 +21,7 @@ import { CreateEtudiantComponent } from './create-etudiant/create-etudiant.compo
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatInputModule, MatRadioModule, MatCheckboxModule, MatCardModule} from '@angular/material';
 import { RgpdComponent } from './rgpd/rgpd.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { RgpdComponent } from './rgpd/rgpd.component';
     TopbarComponent,
     EtudiantComponent,
     CreateEtudiantComponent,
-    RgpdComponent
+    RgpdComponent,
+    NotfoundComponent
     
   ],
 

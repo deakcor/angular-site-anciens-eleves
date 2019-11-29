@@ -37,6 +37,8 @@ export class EtudiantService {
   }
   
   reset_graph(etu){
+    this.promos=[]
+    this.entreprises=[]
     for (let k=0;k<etu.length;k++){
       let id=-1
       let ide=-1
@@ -62,7 +64,11 @@ export class EtudiantService {
       }
     }
   }
-
+  deleteEtudiant(id){
+    this.etudiants.splice(id,1)
+    this.dataSource=  new MatTableDataSource(this.etudiants.filter(k=>(!k.admin)));
+    this.reset_graph(this.etudiants.filter(k=>(!k.admin)))
+  }
   createstudent(data){
     let exist=false
     for (let k in this.etudiants){

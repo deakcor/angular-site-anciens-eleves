@@ -45,12 +45,16 @@ export class EtudiantComponent implements OnInit {
   }
 
   supprimer():void{
-    this.etuServ.etudiants.splice(this.id,1)
+    this.etuServ.deleteEtudiant(this.id)
+    
     if (this.id==this.connexion.getid()){
       this.connexion.disconnect()
+      this.router.navigate(['/accueil']);
+    }else{
+      this.router.navigate(['/etudiant']);
     }
     
-    this.router.navigate(['']);
+    
   }
 
   modifier(rien:boolean=false): void {

@@ -7,10 +7,12 @@
     
 
   </div>
-
-
+<div *ngIf="id==-1">
+  <mat-form-field>
+    <input matInput (input)="applyFilter($event.target.value)" placeholder="Filtre" class="form-control">
+  </mat-form-field>
   
-    <table mat-table [dataSource]="etuServ.dataSource" matSort class="mat-elevation-z8" *ngIf="id==-1">
+    <table mat-table [dataSource]="etuServ.dataSource" matSort class="mat-elevation-z8" >
     
       <!-- Position Column -->
       <ng-container matColumnDef="nom">
@@ -55,6 +57,7 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+  </div>
     <div class="student-content" >
     <button (click)="modifier(true)" class="button primary" *ngIf="id==-1 && connexion.isadmin()">Créer/Modifier un compte</button>
   </div>

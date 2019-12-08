@@ -14,7 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class ConnexionComponent implements OnInit {
   identification:User;
   error:boolean=false;
-  created:boolean=false
+  created:boolean=false;
   constructor(public connexion:ConnexionService,private router: Router,public dialog:MatDialog) {
    }
 

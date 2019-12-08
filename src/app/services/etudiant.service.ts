@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http'
+import { Location } from '@angular/common';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http'
 import { MatTableDataSource } from '@angular/material/table';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 export interface Etudiant {
   pseudo:string,
@@ -23,7 +26,7 @@ export class EtudiantService {
   dataSource;
   promos:Array<object>=[]
   entreprises:Array<object>=[]
-  constructor(private http:HttpClient){
+  constructor(private http:HttpClient, private location:Location){
     
     this.http.get<Array<Etudiant>>("/assets/datas/etudiant.json").subscribe(
       etu=>{
@@ -60,7 +63,7 @@ export class EtudiantService {
       if (ide==-1){
         this.entreprises.push({name:etu[k].entreprise,y:1})
       }else{
-        this.entreprises[id]["y"]+=1
+        this.entreprises[ide]["y"]+=1
       }
     }
   }
@@ -68,8 +71,12 @@ export class EtudiantService {
     this.etudiants.splice(id,1)
     this.dataSource=  new MatTableDataSource(this.etudiants.filter(k=>(!k.admin)));
     this.reset_graph(this.etudiants.filter(k=>(!k.admin)))
+    this.miseAJourDonnees().subscribe(
+      () => alert("Données enregistrées")
+    );
   }
   createstudent(data){
+    console.log(data)
     let exist=false
     for (let k in this.etudiants){
       if (this.etudiants[k].pseudo==data.pseudo && this.etudiants[k].mdp==data.mdp){
@@ -82,6 +89,9 @@ export class EtudiantService {
     }
     this.dataSource=  new MatTableDataSource(this.etudiants.filter(k=>(!k.admin)));
     this.reset_graph(this.etudiants.filter(k=>(!k.admin)))
+    this.miseAJourDonnees().subscribe(
+      () => alert("Données enregistrées")
+    );
   }
 
   match_idpwd(pseudo,pwd){
@@ -96,4 +106,28 @@ export class EtudiantService {
     }
     return id;
   }
+
+  miseAJourDonnees():Observable<any>{
+    console.log("letsgo")
+    return this.http.post(this.location.prepareExternalUrl('/assets/php/setJson.php'), this.etudiants)
+    .pipe(
+      catchError( erreur => this.handleError(erreur) )
+    );
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error("Une erreur s'est produite : ", error.error.message);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      console.error(
+        `PHP renvoie une erreur ${error.status}, ` +
+        `plus d'infos sur le body : ${error.error}`);
+    }
+    // return an observable with a user-facing error message
+    return throwError(
+      "Une erreur s'est produite lors de l'écriture des données, merci de rééssayer");
+  };
 }

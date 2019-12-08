@@ -41,6 +41,7 @@ export class EtudiantComponent implements OnInit {
   }
 
   applyFilter(filterValue: string) {
+    //Au final j'utilise pas le pipe car datasource a deja une variable filter
     this.etuServ.dataSource.filter = filterValue.trim().toLowerCase();
   }
 

@@ -8,7 +8,8 @@ import { EtudiantService } from './etudiant.service';
 export class ConnexionService {
 
   private connected:boolean;
-  private id:number=-1
+  private id:number=-1;
+  token : string;
 
   constructor(public etuServ:EtudiantService, private router:Router) { 
     this.connected=false;
@@ -45,5 +46,17 @@ export class ConnexionService {
     
     return this.connected;
     
+  }
+
+  recupereConnexion():boolean{
+    if(sessionStorage.getItem('connexion')){
+      return JSON.parse(sessionStorage.getItem('connexion'));
+    }
+      return this.connected;
+  }
+
+  stockConnexion(tag: boolean) {
+    this.connected = tag;
+    sessionStorage.setItem('connexion', JSON.stringify(tag));
   }
 }

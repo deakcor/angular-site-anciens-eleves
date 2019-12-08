@@ -24,6 +24,7 @@ import { RgpdComponent } from './rgpd/rgpd.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import {  HighchartsChartModule } from 'highcharts-angular';
 import { StatsComponent } from './stats/stats.component';
+import { EtudiantsPipe } from './services/etudiants.pipe';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { StatsComponent } from './stats/stats.component';
     CreateEtudiantComponent,
     RgpdComponent,
     NotfoundComponent,
-    StatsComponent
+    StatsComponent,
+    EtudiantsPipe
     
   ],
 

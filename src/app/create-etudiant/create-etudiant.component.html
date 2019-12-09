@@ -20,10 +20,15 @@
       <input matInput [(ngModel)]="data.prenom" placeholder="Prénom" class="form-control" required>
     </mat-form-field>
     <p>Entrez votre promotion</p>
-    <mat-form-field>
-      <input matInput [(ngModel)]="data.promo" placeholder="Promotion" class="form-control">
-    </mat-form-field>
-
+    <br>
+        <mat-slider
+        class="slider"
+        thumbLabel
+        [(ngModel)]="data.promo"
+        [displayWith]="formatLabel"
+        tickInterval="1"
+        min="2000"
+        max="2020"></mat-slider>
       <mat-checkbox [(ngModel)]="data.showpromo">Afficher publiquement votre promotion</mat-checkbox>
 
     <p>Entrez votre entreprise</p>

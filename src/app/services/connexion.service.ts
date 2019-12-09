@@ -1,26 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { EtudiantService } from './etudiant.service';
+import { FirebaseService } from './firebase.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConnexionService {
 
-  private connected:boolean;
-  private id:number=-1;
-  token : string;
+  private id:string="";
+  private data:any;
 
-  constructor(public etuServ:EtudiantService, private router:Router) { 
-    this.connected=false;
+  constructor(public etuServ:EtudiantService, private router:Router, private firebaseService:FirebaseService) { 
   }
 
   disconnect() {
-    this.connected=false;
-    this.id=-1;
-    if (!this.connected){
-      this.router.navigate(['/accueil']);
-    }
+    this.id="";
+    this.data={}
+    this.router.navigate(['/accueil']);
+    
   }
 
   getid(){
@@ -28,35 +26,25 @@ export class ConnexionService {
   }
 
   isadmin(){
-    if (this.connected){
-      return this.etuServ.etudiants[this.id].admin
+    if (this.id!=""){
+      return this.data.admin
     }else{
       return false
     }
     
   }
 
-  connect(pseudo,pwd){
-    this.id=this.etuServ.match_idpwd(pseudo,pwd)
-    this.connected=(this.id!=-1);
+  connect(doc){
+    this.id=doc.id
+    this.data=doc.data()
     
+    this.etuServ.maj_users()
   }
 
   isconnected(){
     
-    return this.connected;
+    return this.id!="";
     
   }
 
-  recupereConnexion():boolean{
-    if(sessionStorage.getItem('connexion')){
-      return JSON.parse(sessionStorage.getItem('connexion'));
-    }
-      return this.connected;
-  }
-
-  stockConnexion(tag: boolean) {
-    this.connected = tag;
-    sessionStorage.setItem('connexion', JSON.stringify(tag));
-  }
 }

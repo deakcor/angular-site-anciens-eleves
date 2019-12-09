@@ -14,17 +14,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule} from '@angular/material/form-field';
-
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { ConnexionService } from './services/connexion.service';
 import { CreateEtudiantComponent } from './create-etudiant/create-etudiant.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatInputModule, MatRadioModule, MatCheckboxModule, MatCardModule} from '@angular/material';
+import {MatInputModule, MatRadioModule, MatCheckboxModule, MatCardModule, MatSliderModule} from '@angular/material';
 import { RgpdComponent } from './rgpd/rgpd.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import {  HighchartsChartModule } from 'highcharts-angular';
 import { StatsComponent } from './stats/stats.component';
 import { EtudiantsPipe } from './services/etudiants.pipe';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,10 @@ import { EtudiantsPipe } from './services/etudiants.pipe';
     MatRadioModule,
     MatCheckboxModule,
     MatCardModule,
-    HighchartsChartModule
+    MatSliderModule,
+    HighchartsChartModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
   providers: [ConnexionService],
   bootstrap: [AppComponent]

@@ -10,8 +10,9 @@ export interface DialogData {
   prenom:string;
   promo:string;
   entreprise:string;
-  showpromo:string;
-  showentreprise:string;
+  showpromo:boolean;
+  showentreprise:boolean;
+  admin:boolean;
 }
 
 @Component({
@@ -34,6 +35,7 @@ export class CreateEtudiantComponent implements OnInit {
   onValidClick(): void {
     console.log(this.data)
     if (this.data.nom!="" && this.data.prenom!="" && this.data.pseudo!="" && this.data.mdp!="" && this.rgpd){
+      this.data.admin=false
       this.etuServ.createstudent(this.data)
       this.dialogRef.close(this.data);
     }else{

@@ -4,6 +4,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http'
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { FirebaseService } from './firebase.service';
 
 export interface Etudiant {
   pseudo:string,
@@ -22,112 +23,90 @@ export interface Etudiant {
 })
 export class EtudiantService {
 
-  etudiants:Array<Etudiant>;
-  dataSource;
-  promos:Array<object>=[]
-  entreprises:Array<object>=[]
-  constructor(private http:HttpClient, private location:Location){
+  etudiants:Array<any>;
+  users:Array<any>
+  dataSource:MatTableDataSource<any>;
+  promos:Array<any>=[]
+  entreprises:Array<any>=[]
+  constructor(private http:HttpClient, private location:Location, private firebaseService:FirebaseService){
+    this.maj_users()
     
-    this.http.get<Array<Etudiant>>("/assets/datas/etudiant.json").subscribe(
-      etu=>{
-        this.etudiants=etu.slice(0);
-        etu=etu.filter(k=>(!k.admin));
-        this.reset_graph(etu)
-        this.dataSource=  new MatTableDataSource(etu);
-        console.log(etu);
-      }
-    )
   }
   
-  reset_graph(etu){
+  reset_graph(){
     this.promos=[]
     this.entreprises=[]
-    for (let k=0;k<etu.length;k++){
+    for (let k=0;k<this.etudiants.length;k++){
       let id=-1
       let ide=-1
       for (let i=0;i<this.promos.length;i++){
-        if (this.promos[i]["x"]==parseInt(etu[k].promo)){
+        if (this.promos[i]["x"]==parseInt(this.etudiants[k].promo)){
             id=i;
         }
       }
       for (let i=0;i<this.entreprises.length;i++){
-        if (this.entreprises[i]["name"]==etu[k].entreprise){
+        if (this.entreprises[i]["name"]==this.etudiants[k].entreprise){
             ide=i;
         }
       }
       if (id==-1){
-        this.promos.push({x:parseInt(etu[k].promo),y:1,name:etu[k].promo})
+        this.promos.push({x:parseInt(this.etudiants[k].promo),y:1,name:this.etudiants[k].promo})
       }else{
         this.promos[id]["y"]+=1
       }
       if (ide==-1){
-        this.entreprises.push({name:etu[k].entreprise,y:1})
+        this.entreprises.push({name:this.etudiants[k].entreprise,y:1})
       }else{
         this.entreprises[ide]["y"]+=1
       }
     }
   }
-  deleteEtudiant(id){
-    this.etudiants.splice(id,1)
-    this.dataSource=  new MatTableDataSource(this.etudiants.filter(k=>(!k.admin)));
-    this.reset_graph(this.etudiants.filter(k=>(!k.admin)))
-    this.miseAJourDonnees().subscribe(
-      () => alert("Données enregistrées")
-    );
+  deleteEtudiant(id:string){
+    this.firebaseService.deleteUser(id)
+    this.maj_users()
   }
-  createstudent(data){
-    console.log(data)
-    let exist=false
-    for (let k in this.etudiants){
-      if (this.etudiants[k].pseudo==data.pseudo && this.etudiants[k].mdp==data.mdp){
-        this.etudiants[k]=data
-        exist=true
+  createstudent(data:any){
+
+    this.firebaseService.getUsers().subscribe(
+      res=>{let updated=false;
+        res.forEach(element=>{
+        if (element.payload.doc.data()["pseudo"]==data.pseudo){
+          this.firebaseService.updateUser(element.payload.doc.id,data)
+          updated=true;
+        }
+        
+      });
+      if (!updated){
+        this.firebaseService.createUser(data)
       }
+        
     }
-    if (!exist){
-      this.etudiants.push(data)
-    }
-    this.dataSource=  new MatTableDataSource(this.etudiants.filter(k=>(!k.admin)));
-    this.reset_graph(this.etudiants.filter(k=>(!k.admin)))
-    this.miseAJourDonnees().subscribe(
-      () => alert("Données enregistrées")
     );
+    this.maj_users()
+    
+    
   }
 
-  match_idpwd(pseudo,pwd){
-    console.log(this.etudiants,pseudo,pwd)
-    let i=0;
-    let id=-1;
-    while (i<this.etudiants.length && id==-1){
-      if (pseudo==this.etudiants[i]["pseudo"] && pwd==this.etudiants[i]["mdp"]){
-        id=i;
-      }
-      i+=1;
-    }
-    return id;
-  }
-
-  miseAJourDonnees():Observable<any>{
-    console.log("letsgo")
-    return this.http.post(this.location.prepareExternalUrl('/assets/php/setJson.php'), this.etudiants)
-    .pipe(
-      catchError( erreur => this.handleError(erreur) )
+  maj_users(){
+    
+    
+    this.firebaseService.getUsers().subscribe(
+      res=>{this.users=[];
+        res.forEach(element => this.users.push(element.payload.doc.data()))}
     );
+    this.firebaseService.getEtudiants().subscribe(
+      res=>{
+        this.etudiants=[];
+        for (let element of res){
+          this.etudiants.push(element.payload.doc.data())
+        }
+        this.dataSource=  new MatTableDataSource(this.etudiants);
+        this.reset_graph()}
+        
+    );
+    
   }
 
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error("Une erreur s'est produite : ", error.error.message);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      console.error(
-        `PHP renvoie une erreur ${error.status}, ` +
-        `plus d'infos sur le body : ${error.error}`);
-    }
-    // return an observable with a user-facing error message
-    return throwError(
-      "Une erreur s'est produite lors de l'écriture des données, merci de rééssayer");
-  };
+  
+
 }

@@ -17,10 +17,10 @@
       <span>Connexion</span>
       
     </a>
-    <a aria-label="profil" href [routerLink]="['/etudiant',etuServ.etudiants[connexion.getid()].pseudo]" title="profil" *ngIf="connexion.connected">
+    <a aria-label="profil" href [routerLink]="['/etudiant',connexion.data.pseudo]" title="profil" *ngIf="connexion.isconnected()">
 
       <mat-icon aria-hidden="false" aria-label="person">person</mat-icon>
-      <span>{{etuServ.etudiants[connexion.getid()].pseudo}}</span>
+      <span>{{connexion.data.pseudo}}</span>
       
     </a>
     <a aria-label="deconnexion" (click)="connexion.disconnect()" title="deconnexion" *ngIf="connexion.isconnected()">

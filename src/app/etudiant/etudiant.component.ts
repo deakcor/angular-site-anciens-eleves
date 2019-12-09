@@ -5,6 +5,7 @@ import {MatSort} from '@angular/material/sort';
 import { ConnexionService } from '../services/connexion.service';
 import { CreateEtudiantComponent } from '../create-etudiant/create-etudiant.component';
 import { MatDialog } from '@angular/material';
+import { FirebaseService } from '../services/firebase.service';
 
 
 @Component({
@@ -13,10 +14,11 @@ import { MatDialog } from '@angular/material';
   styleUrls: ['./etudiant.component.css']
 })
 export class EtudiantComponent implements OnInit {
-  id:number=-1
+  id:string=""
+  current_student:any
   displayedColumns: string[] = ['nom', 'prenom', 'promo', 'entreprise','details'];
-  constructor(public connexion:ConnexionService,public etuServ:EtudiantService,private router: Router, private route: ActivatedRoute, public dialog:MatDialog){
-    console.log(etuServ.etudiants);
+  constructor(private firebaseService:FirebaseService,public connexion:ConnexionService,public etuServ:EtudiantService,private router: Router, private route: ActivatedRoute, public dialog:MatDialog){
+    
     
   }
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -24,17 +26,19 @@ export class EtudiantComponent implements OnInit {
     this.route.params.subscribe(
       p=>{
       try{
-        for (let k=0;k<this.etuServ.etudiants.length;k++){
-          if (this.etuServ.etudiants[k].pseudo==p['id']){
-            this.id=k;
+        this.firebaseService.getUsers().subscribe(
+          res=>res.forEach(element=>{
+            if (element.payload.doc.data()["pseudo"]==p["id"]){
+              this.id=element.payload.doc.id
+              this.current_student=element.payload.doc.data()
+            }
           }
-        }
+            )
+        );
         console.log(this.connexion.getid())
       }catch (e){
-        this.id=-1;
-      }
-      if (isNaN(this.id)){
-        this.id=-1;
+        this.id="";
+        this.current_student={};
       }
       }
     )

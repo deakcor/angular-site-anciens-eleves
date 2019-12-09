@@ -93,7 +93,8 @@ export class StatsComponent implements OnInit {
   chartCallback = function (chart) {  } // optional function, defaults to null
   updateFlag = false; // optional boolean
   oneToOneFlag = true; // optional boolean, defaults to false
-  constructor(public etuServ:EtudiantService) { }
+  constructor(public etuServ:EtudiantService) {
+   }
 
   ngOnInit() {
   }

@@ -7,7 +7,7 @@
     
 
   </div>
-<div *ngIf="id==-1">
+<div *ngIf="id==''">
   <mat-form-field>
     <input matInput (input)="applyFilter($event.target.value)" placeholder="Filtre" class="form-control">
   </mat-form-field>
@@ -17,7 +17,7 @@
       <!-- Position Column -->
       <ng-container matColumnDef="nom">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom </th>
-        <td mat-cell *matCellDef="let element"> {{element.nom}} <span class="success bold" *ngIf="element.pseudo==etuServ.etudiants[connexion.getid()].pseudo">(vous)</span> </td>
+        <td mat-cell *matCellDef="let element"> {{element.nom}} <span class="success bold" *ngIf="element.pseudo==connexion.data.pseudo">(vous)</span> </td>
       </ng-container>
     
       <!-- Name Column -->
@@ -33,7 +33,7 @@
           <ng-template #elseBlock>
             <i class="material-icons secondary">
             visibility_off
-            </i><span class="secondary" *ngIf="element.pseudo==etuServ.etudiants[connexion.getid()].pseudo || connexion.isadmin()"> {{element.promo}}</span>
+            </i><span class="secondary" *ngIf="element.pseudo==connexion.data.pseudo || connexion.isadmin()"> {{element.promo}}</span>
           </ng-template> </td>
       </ng-container>
     
@@ -43,7 +43,7 @@
         <td mat-cell *matCellDef="let element" ><span *ngIf="element.showentreprise; else elseBlock">{{element.entreprise}} </span>
           <ng-template #elseBlock><i class="material-icons secondary">
             visibility_off
-            </i><span class="secondary" *ngIf="element.pseudo==etuServ.etudiants[connexion.getid()].pseudo || connexion.isadmin()"> {{element.entreprise}}</span>
+            </i><span class="secondary" *ngIf="element.pseudo==connexion.data.pseudo || connexion.isadmin()"> {{element.entreprise}}</span>
           </ng-template> </td>
       </ng-container>
 
@@ -59,25 +59,25 @@
     </table>
   </div>
     <div class="student-content" >
-    <button (click)="modifier(true)" class="button primary" *ngIf="id==-1 && connexion.isadmin()">Créer/Modifier un compte</button>
+    <button (click)="modifier(true)" class="button primary" *ngIf="id=='' && connexion.isadmin()">Créer un compte</button>
   </div>
-    <div  *ngIf="id!=-1">
+    <div  *ngIf="id!=''">
 
   <div class="card highlight-card card-small">
 
-      <span>{{etuServ.etudiants[id].nom}} {{etuServ.etudiants[id].prenom}}</span>
+      <span>{{current_student.nom}} {{current_student.prenom}}</span>
 
     </div>
     <div class="student-content" *ngIf="!connexion.isadmin() || connexion.getid()!=id">
     <mat-card >
       <mat-card-header>
         <mat-card-title>Entreprise</mat-card-title>
-        <mat-card-subtitle *ngIf="etuServ.etudiants[id].showentreprise; else elseEntreprise">{{etuServ.etudiants[id].entreprise}}</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="current_student.showentreprise; else elseEntreprise">{{current_student.entreprise}}</mat-card-subtitle>
         <ng-template #elseEntreprise>
             <mat-card-subtitle>
           <i class="material-icons">
           visibility_off
-          </i><span *ngIf="connexion.getid()==id || connexion.isadmin()"> {{etuServ.etudiants[id].entreprise}}</span>
+          </i><span *ngIf="connexion.getid()==id || connexion.isadmin()"> {{current_student.entreprise}}</span>
         </mat-card-subtitle></ng-template>
       </mat-card-header>
     </mat-card>
@@ -85,11 +85,11 @@
     <mat-card>
       <mat-card-header>
         <mat-card-title>Promotion</mat-card-title>
-        <mat-card-subtitle *ngIf="etuServ.etudiants[id].showpromo; else elsePromo">{{etuServ.etudiants[id].promo}}</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="current_student.showpromo; else elsePromo">{{current_student.promo}}</mat-card-subtitle>
         <ng-template #elsePromo>
             <mat-card-subtitle><i class="material-icons">
           visibility_off
-          </i><span *ngIf="connexion.getid()==id || connexion.isadmin()"> {{etuServ.etudiants[id].promo}}</span>
+          </i><span *ngIf="connexion.getid()==id || connexion.isadmin()"> {{current_student.promo}}</span>
         </mat-card-subtitle></ng-template>
       </mat-card-header>
     </mat-card>

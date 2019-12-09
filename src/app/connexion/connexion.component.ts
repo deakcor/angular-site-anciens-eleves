@@ -4,6 +4,7 @@ import { ConnexionService } from '../services/connexion.service';
 import {Router} from "@angular/router"
 import { CreateEtudiantComponent } from '../create-etudiant/create-etudiant.component';
 import { MatDialog } from '@angular/material/dialog';
+import { FirebaseService } from '../services/firebase.service';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class ConnexionComponent implements OnInit {
   identification:User;
   error:boolean=false;
   created:boolean=false;
-  constructor(public connexion:ConnexionService,private router: Router,public dialog:MatDialog) {
+  constructor(public connexion:ConnexionService,private router: Router,public dialog:MatDialog,private firebaseService:FirebaseService) {
    }
 
   ngOnInit() {
@@ -26,26 +27,29 @@ export class ConnexionComponent implements OnInit {
   }
 
   envoie(){
-    console.log(this.identification)
-    this.connexion.connect(this.identification.id,this.identification.pwd)
-    if (this.connexion.isconnected()){
-      this.router.navigate(['/etudiant']);
-    }else{
-      this.error=true;
-      this.created=false;
-    }
+    this.firebaseService.connect(this.identification.id,this.identification.pwd).subscribe(
+      res=>{
+        this.connexion.connect( res.pop().payload.doc)
+        if (this.connexion.isconnected()){
+          this.router.navigate(['/etudiant']);
+        }else{
+          this.error=true;
+          this.created=false;
+        }
+      }
+    );
+    
    
   }
 
   inscription(): void {
     const dialogRef = this.dialog.open(CreateEtudiantComponent, {
       width: '600px',
-      data: {pseudo: this.identification.id, mdp: this.identification.pwd,nom:"",prenom:"",promo:"",entreprise:"",showpromo:false,showentreprise:false}
+      data: {pseudo: this.identification.id, mdp: this.identification.pwd,nom:"",prenom:"",promo:2000,entreprise:"",showpromo:false,showentreprise:false,admin:false}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
+
       if (!isNaN(result)){
         this.created=true
         this.error=false

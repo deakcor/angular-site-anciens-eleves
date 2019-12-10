@@ -28,9 +28,10 @@ export class EtudiantService {
   dataSource:MatTableDataSource<any>;
   promos:Array<any>=[]
   entreprises:Array<any>=[]
+  waiting:boolean=false
+
   constructor(private http:HttpClient, private location:Location, private firebaseService:FirebaseService){
-    this.maj_users()
-    
+      //firebaseService.deleteUserByPseudo("a")
   }
   
   reset_graph(){
@@ -62,48 +63,73 @@ export class EtudiantService {
     }
   }
   deleteEtudiant(id:string){
-    this.firebaseService.deleteUser(id)
-    this.maj_users()
+    if (!this.waiting){
+      this.waiting=true
+      this.firebaseService.deleteUser(id).then(
+        res=>{this.waiting=false}
+        
+      )
+        }
+    
+    
+    
   }
   createstudent(data:any){
-
-    this.firebaseService.getUsers().subscribe(
-      res=>{let updated=false;
-        res.forEach(element=>{
-        if (element.payload.doc.data()["pseudo"]==data.pseudo){
-          this.firebaseService.updateUser(element.payload.doc.id,data)
-          updated=true;
+    
+      this.firebaseService.getUserByPseudo(data.pseudo).subscribe(
+        res=>{
+          let r=res.pop()
+          console.log(typeof r)
+          if (typeof r=="object" && r.payload.doc.data()["pseudo"]==data.pseudo){
+            this.update(r,data)
+          }else{
+            this.create(data)
+          }
         }
-        
-      });
-      if (!updated){
-        this.firebaseService.createUser(data)
-      }
-        
+      );
+     
     }
-    );
-    this.maj_users()
-    
-    
+
+  update(r,data){
+    if (!this.waiting){
+      this.waiting=true
+    this.firebaseService.updateUser(r.payload.doc.id,data).then(
+      res=>{this.waiting=false;console.log("fini")}
+    )
+    }
+  }
+
+  create(data){
+    if (!this.waiting){
+      this.waiting=true
+    this.firebaseService.createUser(data).then(
+      res=>{this.waiting=false;console.log("fini create")}
+    )
+    }
   }
 
   maj_users(){
     
-    
-    this.firebaseService.getUsers().subscribe(
+
+    /*this.firebaseService.getUsers().subscribe(
       res=>{this.users=[];
-        res.forEach(element => this.users.push(element.payload.doc.data()))}
-    );
+        res.forEach(element => this.users.push(element.payload.doc.data()));
+        }
+    );*/
     this.firebaseService.getEtudiants().subscribe(
-      res=>{
+      r=>{
         this.etudiants=[];
-        for (let element of res){
+        for (let element of r){
           this.etudiants.push(element.payload.doc.data())
         }
         this.dataSource=  new MatTableDataSource(this.etudiants);
-        this.reset_graph()}
+        this.reset_graph();
+        console.log("yep")
+      }
         
     );
+          
+    
     
   }
 

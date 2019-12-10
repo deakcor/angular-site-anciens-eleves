@@ -36,7 +36,7 @@ export class CreateEtudiantComponent implements OnInit {
     console.log(this.data)
     if (this.data.nom!="" && this.data.prenom!="" && this.data.pseudo!="" && this.data.mdp!="" && this.rgpd){
       this.data.admin=false
-      this.etuServ.createstudent(this.data)
+      
       this.dialogRef.close(this.data);
     }else{
       this.invalid=true

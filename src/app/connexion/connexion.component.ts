@@ -16,6 +16,7 @@ export class ConnexionComponent implements OnInit {
   identification:User;
   error:boolean=false;
   created:boolean=false;
+  waiting:boolean=false
   constructor(public connexion:ConnexionService,private router: Router,public dialog:MatDialog,private firebaseService:FirebaseService) {
    }
 
@@ -27,17 +28,23 @@ export class ConnexionComponent implements OnInit {
   }
 
   envoie(){
-    this.firebaseService.connect(this.identification.id,this.identification.pwd).subscribe(
-      res=>{
-        this.connexion.connect( res.pop().payload.doc)
-        if (this.connexion.isconnected()){
-          this.router.navigate(['/etudiant']);
-        }else{
-          this.error=true;
-          this.created=false;
+    if (!this.waiting){
+      this.waiting=true;
+      this.firebaseService.connect(this.identification.id,this.identification.pwd).subscribe(
+        res=>{
+          this.waiting=false;
+          this.connexion.connect( res.pop().payload.doc)
+          if (this.connexion.isconnected()){
+            this.router.navigate(['/etudiant']);
+          }else{
+            this.error=true;
+            this.created=false;
+          }
+          
         }
-      }
-    );
+      );
+    }
+    
     
    
   }
@@ -49,8 +56,8 @@ export class ConnexionComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
-      if (!isNaN(result)){
+      console.log(result)
+      if (typeof result === 'object'){
         this.created=true
         this.error=false
       }

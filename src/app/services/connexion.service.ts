@@ -35,6 +35,7 @@ export class ConnexionService {
   }
 
   connect(doc){
+    console.log(this.id,"aaaaaa")
     this.id=doc.id
     this.data=doc.data()
     

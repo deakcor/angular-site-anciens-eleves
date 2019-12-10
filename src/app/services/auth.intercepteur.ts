@@ -21,21 +21,13 @@ export class AuthIntercepteur implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // Réécriture des entêtes si un token existe
     console.log("Interception d'une requête ... ");
-    if (this.securite.token) {
-      this.entetes = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + this.securite.token
-        })
-      }
-    }
-    else {
+
       this.entetes = {
         headers: new HttpHeaders({
           'Content-Type': 'application/json'
         })
       }
-    }
+    
     const authReq = req.clone(this.entetes);
 
     console.log("La requête va être envoyée avec un nouveau header intégrant une autorisation...");

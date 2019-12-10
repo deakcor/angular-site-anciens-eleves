@@ -26,19 +26,24 @@ export class EtudiantComponent implements OnInit {
     this.route.params.subscribe(
       p=>{
       try{
-        this.firebaseService.getUsers().subscribe(
-          res=>res.forEach(element=>{
-            if (element.payload.doc.data()["pseudo"]==p["id"]){
-              this.id=element.payload.doc.id
-              this.current_student=element.payload.doc.data()
+        console.log(this.id,"ooooooooooooo")
+          this.firebaseService.getUsers().subscribe(
+            res=>{res.forEach(element=>{
+              if (element.payload.doc.data()["pseudo"]==p["id"]){
+                this.id=element.payload.doc.id
+                this.current_student=element.payload.doc.data()
+                console.log(this.id,"bb")
+              }
             }
+          
+              )
           }
-            )
-        );
-        console.log(this.connexion.getid())
+          );
+        
       }catch (e){
         this.id="";
         this.current_student={};
+        console.log("ici")
       }
       }
     )
@@ -65,10 +70,7 @@ export class EtudiantComponent implements OnInit {
   modifier(rien:boolean=false): void {
     const dialogRef = this.dialog.open(CreateEtudiantComponent, {
       width: '600px',
-      data: !rien?{pseudo: this.etuServ.etudiants[this.id].pseudo, mdp: this.etuServ.etudiants[this.id].mdp,nom:this.etuServ.etudiants[this.id].nom,
-        prenom:this.etuServ.etudiants[this.id].prenom,
-        promo:this.etuServ.etudiants[this.id].promo,entreprise:this.etuServ.etudiants[this.id].entreprise,showpromo:this.etuServ.etudiants[this.id].showpromo,
-        showentreprise:this.etuServ.etudiants[this.id].showentreprise}
+      data: !rien?this.current_student
         :{pseudo: "", mdp: "",nom:"",
         prenom:"",
         promo:"",entreprise:"",showpromo:false,
@@ -78,6 +80,11 @@ export class EtudiantComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       console.log(result);
+      if (typeof result=="object"){
+        this.etuServ.createstudent(result)
+        console.log("CREATE")
+      }
+      
     });
   }
 }

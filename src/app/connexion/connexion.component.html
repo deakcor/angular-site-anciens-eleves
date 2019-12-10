@@ -8,7 +8,7 @@
     
 
   </div>
-  <form #fi="ngForm" (submit)="envoie()">
+  <form #fi="ngForm">
     <div>
       <input name="id" [(ngModel)]="identification.id" type="text" required placeholder="Identifiant" class="form-control"/>
       <input name="pwd" [(ngModel)]="identification.pwd" type="password" required minlength="8" placeholder="Mot de passe" class="form-control"/>
@@ -19,7 +19,7 @@
     </div>
     
     <div>
-      <input name="envoie" type="submit" value="Se connecter" class="button primary"/>
+      <button (click)="envoie()"  class="button primary">Se connecter</button>
       <button (click)="inscription()" class="button primary">Creer un compte</button>
 
       <!--<input name="annuler" type="reset" class="button"/>-->

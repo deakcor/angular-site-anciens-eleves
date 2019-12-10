@@ -18,10 +18,10 @@ export class TopbarComponent implements OnInit {
     this.image="https://eisti.fr/sites/all/themes/eisti/assets/images/logo.gif";
    }
   onResize(event){
-    console.log(event.target.innerWidth);
     this.lowWidth=event.target.innerWidth<700
   }
   ngOnInit() {
+    this.lowWidth=window.innerWidth<700
   }
 
 }

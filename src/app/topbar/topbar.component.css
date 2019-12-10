@@ -28,5 +28,11 @@
 
   .toolbar a:hover{
     color:gainsboro;
-    margin:16px;
+}
+
+@media screen and (max-width: 575px) {
+  .toolbar a{
+    color:white;
+    margin:8px;
+  }
 }

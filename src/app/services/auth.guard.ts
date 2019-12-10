@@ -12,7 +12,6 @@ export class AuthGuard implements CanActivate, CanLoad {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      console.log(state.url)
     return this.connexion.isconnected() && state.url!="/statistiques" || this.connexion.isadmin();
   }
   canLoad(

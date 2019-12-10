@@ -33,7 +33,6 @@ export class CreateEtudiantComponent implements OnInit {
   }
 
   onValidClick(): void {
-    console.log(this.data)
     if (this.data.nom!="" && this.data.prenom!="" && this.data.pseudo!="" && this.data.mdp!="" && this.rgpd){
       this.data.admin=false
       

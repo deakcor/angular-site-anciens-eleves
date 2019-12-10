@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http'
 import { MatTableDataSource } from '@angular/material/table';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 import { FirebaseService } from './firebase.service';
 
 export interface Etudiant {
@@ -31,7 +29,6 @@ export class EtudiantService {
   waiting:boolean=false
 
   constructor(private http:HttpClient, private location:Location, private firebaseService:FirebaseService){
-      //firebaseService.deleteUserByPseudo("a")
   }
   
   reset_graph(){
@@ -79,7 +76,6 @@ export class EtudiantService {
       this.firebaseService.getUserByPseudo(data.pseudo).subscribe(
         res=>{
           let r=res.pop()
-          console.log(typeof r)
           if (typeof r=="object" && r.payload.doc.data()["pseudo"]==data.pseudo){
             this.update(r,data)
           }else{
@@ -94,7 +90,7 @@ export class EtudiantService {
     if (!this.waiting){
       this.waiting=true
     this.firebaseService.updateUser(r.payload.doc.id,data).then(
-      res=>{this.waiting=false;console.log("fini")}
+      res=>{this.waiting=false;}
     )
     }
   }
@@ -103,19 +99,13 @@ export class EtudiantService {
     if (!this.waiting){
       this.waiting=true
     this.firebaseService.createUser(data).then(
-      res=>{this.waiting=false;console.log("fini create")}
+      res=>{this.waiting=false;}
     )
     }
   }
 
   maj_users(){
-    
 
-    /*this.firebaseService.getUsers().subscribe(
-      res=>{this.users=[];
-        res.forEach(element => this.users.push(element.payload.doc.data()));
-        }
-    );*/
     this.firebaseService.getEtudiants().subscribe(
       r=>{
         this.etudiants=[];
@@ -124,7 +114,6 @@ export class EtudiantService {
         }
         this.dataSource=  new MatTableDataSource(this.etudiants);
         this.reset_graph();
-        console.log("yep")
       }
         
     );

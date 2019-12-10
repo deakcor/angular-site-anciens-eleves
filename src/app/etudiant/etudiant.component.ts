@@ -26,13 +26,11 @@ export class EtudiantComponent implements OnInit {
     this.route.params.subscribe(
       p=>{
       try{
-        console.log(this.id,"ooooooooooooo")
           this.firebaseService.getUsers().subscribe(
             res=>{res.forEach(element=>{
               if (element.payload.doc.data()["pseudo"]==p["id"]){
                 this.id=element.payload.doc.id
                 this.current_student=element.payload.doc.data()
-                console.log(this.id,"bb")
               }
             }
           
@@ -43,7 +41,6 @@ export class EtudiantComponent implements OnInit {
       }catch (e){
         this.id="";
         this.current_student={};
-        console.log("ici")
       }
       }
     )
@@ -78,11 +75,8 @@ export class EtudiantComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
       if (typeof result=="object"){
         this.etuServ.createstudent(result)
-        console.log("CREATE")
       }
       
     });

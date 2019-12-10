@@ -4,6 +4,8 @@ Site créé par Vincent Darcemont.
 
 ## Lancer le site
 
+(`npm install`)
+
 Lancer `ng serve -o`.
 
 ## Inscription
@@ -17,7 +19,7 @@ Vous pouvez aussi choisir si elles sont visibles au public.
 
 ## Connexion
 
-Certains comptes sont présents dans le fichier `assets/datas/etudiant.json`.
+Certains comptes sont présents dans la bdd firebase.
 
 Vous pouvez par exemple vous connecter avec : pseudo : test, mdp : test
 
@@ -35,10 +37,10 @@ Si le profil est le vôtre, l'entreprise et la promotion sera visible. Vous pouv
 
 Pour vous connecter en admin : pseudo : admin, mdp: admin
 
-Dans la bdd, un admin possède le champs admin:true. Donc vous pouvez créer d'autres admin en le créant dans la bdd.
+Dans la bdd, un admin possède le champs admin:true.
 
 Un admin a le détail complet pour chaque étudiant (entreprise et promotion visibles) et peut modifier ou supprimer chaque compte.
 
 ## Onglet statistiques
 
-Si vous êtes admin, vous avez accès à un onglet statistiques qui met en graphique les données.
+Si vous êtes admin, vous avez accès à un onglet statistiques qui met en graphique les données des étudiants.

@@ -1,14 +1,16 @@
 <div class="toolbar" role="banner">
-    <a href routerLink="/accueil">
+    <a href routerLink="/accueil" title="Accueil" >
       <img
       width="25"
       alt="EISTI Logo"
       [src]="image"
     /></a>
     
-    <a href routerLink="/accueil">Accueil</a>
-    <a href routerLink="/etudiant" *ngIf="connexion.isconnected()">Etudiants</a>
-    <a href routerLink="/statistiques" *ngIf="connexion.isadmin()">Statistiques</a>
+    <a href routerLink="/accueil" title="Accueil" ><span *ngIf="!lowWidth">Accueil</span><mat-icon *ngIf="lowWidth" aria-hidden="false" aria-label="home">home</mat-icon></a>
+    <a href routerLink="/etudiant" title="Etudiants"  *ngIf="connexion.isconnected()">
+      <span *ngIf="!lowWidth">Etudiants</span><mat-icon *ngIf="lowWidth" aria-hidden="false" aria-label="people">people</mat-icon></a>
+    <a href routerLink="/statistiques"  title="Statistiques" *ngIf="connexion.isadmin()">
+      <span *ngIf="!lowWidth">Statistiques</span><mat-icon *ngIf="lowWidth" aria-hidden="false" aria-label="bar_chart">bar_chart</mat-icon></a>
       <div class="spacer"></div>
     
     <a aria-label="connexion" href routerLink="/connexion" title="connexion" *ngIf="!connexion.isconnected() && router.url!='/connexion'">
@@ -17,16 +19,16 @@
       <span>Connexion</span>
       
     </a>
-    <a aria-label="profil" href [routerLink]="['/etudiant',connexion.data.pseudo]" title="profil" *ngIf="connexion.isconnected()">
+    <a aria-label="profil" href [routerLink]="['/etudiant',connexion.data.pseudo]" title="Profil" *ngIf="connexion.isconnected()">
 
       <mat-icon aria-hidden="false" aria-label="person">person</mat-icon>
       <span>{{connexion.data.pseudo}}</span>
       
     </a>
-    <a aria-label="deconnexion" (click)="connexion.disconnect()" title="deconnexion" *ngIf="connexion.isconnected()">
+    <a aria-label="deconnexion" (click)="connexion.disconnect()" title="Déconnexion" *ngIf="connexion.isconnected()">
 
       <mat-icon aria-hidden="false" aria-label="deconnexion">close</mat-icon>
-      <span>Deconnexion</span>
+      <span *ngIf="!lowWidth">Déconnexion</span>
       
     </a>
   </div>

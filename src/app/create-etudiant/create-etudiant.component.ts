@@ -24,6 +24,7 @@ export class CreateEtudiantComponent implements OnInit {
 
   rgpd:boolean=false
   invalid:boolean=false
+  hide:boolean=true
   constructor(
     public dialogRef: MatDialogRef<CreateEtudiantComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,public etuServ:EtudiantService) {}
@@ -35,7 +36,7 @@ export class CreateEtudiantComponent implements OnInit {
   onValidClick(): void {
     if (this.data.nom!="" && this.data.prenom!="" && this.data.pseudo!="" && this.data.mdp!="" && this.rgpd){
       this.data.admin=false
-      
+      this.etuServ.createstudent(this.data)
       this.dialogRef.close(this.data);
     }else{
       this.invalid=true

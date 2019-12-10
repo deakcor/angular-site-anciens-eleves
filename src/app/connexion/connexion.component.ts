@@ -33,7 +33,11 @@ export class ConnexionComponent implements OnInit {
       this.firebaseService.connect(this.identification.id,this.identification.pwd).subscribe(
         res=>{
           this.waiting=false;
-          this.connexion.connect( res.pop().payload.doc)
+          let r=res.pop()
+          if (typeof r=="object"){
+            this.connexion.connect( r.payload.doc)
+          }
+          
           if (this.connexion.isconnected()){
             this.router.navigate(['/etudiant']);
           }else{
@@ -56,8 +60,8 @@ export class ConnexionComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
       if (typeof result === 'object'){
+        
         this.created=true
         this.error=false
       }

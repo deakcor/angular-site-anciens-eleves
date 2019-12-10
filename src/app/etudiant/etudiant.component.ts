@@ -76,7 +76,7 @@ export class EtudiantComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (typeof result=="object"){
-        this.etuServ.createstudent(result)
+        
       }
       
     });

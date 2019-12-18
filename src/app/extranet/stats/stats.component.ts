@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
-import { EtudiantService } from '../services/etudiant.service';
+import { EtudiantService } from '../../services/etudiant.service';
 
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { EtudiantService } from '../services/etudiant.service';
+import { EtudiantService } from 'src/app/services/etudiant.service';
 
 
 export interface DialogData {
@@ -25,9 +25,13 @@ export class CreateEtudiantComponent implements OnInit {
   rgpd:boolean=false
   invalid:boolean=false
   hide:boolean=true
+
   constructor(
     public dialogRef: MatDialogRef<CreateEtudiantComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,public etuServ:EtudiantService) {}
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,public etuServ:EtudiantService) {
+      
+    }
+    
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -44,6 +48,7 @@ export class CreateEtudiantComponent implements OnInit {
     
   }
 
-  ngOnInit(){}
+  ngOnInit(){
+  }
 
 }

@@ -7,9 +7,9 @@
     /></a>
     
     <a href routerLink="/accueil" title="Accueil" ><span *ngIf="!lowWidth">Accueil</span><mat-icon *ngIf="lowWidth" aria-hidden="false" aria-label="home">home</mat-icon></a>
-    <a href routerLink="/etudiant" title="Etudiants"  *ngIf="connexion.isconnected()">
+    <a href routerLink="/extranet/etudiant" title="Etudiants"  *ngIf="connexion.isconnected()">
       <span *ngIf="!lowWidth">Etudiants</span><mat-icon *ngIf="lowWidth" aria-hidden="false" aria-label="people">people</mat-icon></a>
-    <a href routerLink="/statistiques"  title="Statistiques" *ngIf="connexion.isadmin()">
+    <a href routerLink="/extranet/statistiques"  title="Statistiques" *ngIf="connexion.isadmin()">
       <span *ngIf="!lowWidth">Statistiques</span><mat-icon *ngIf="lowWidth" aria-hidden="false" aria-label="bar_chart">bar_chart</mat-icon></a>
       <div class="spacer"></div>
     
@@ -19,10 +19,10 @@
       <span>Connexion</span>
       
     </a>
-    <a aria-label="profil" href [routerLink]="['/etudiant',connexion.data.pseudo]" title="Profil" *ngIf="connexion.isconnected()">
+    <a aria-label="profil" href [routerLink]="['/extranet/etudiant',connexion.getpseudo()]" title="Profil" *ngIf="connexion.isconnected()">
 
       <mat-icon aria-hidden="false" aria-label="person">person</mat-icon>
-      <span *ngIf="!lowWidth">{{connexion.data.pseudo}}</span>
+      <span *ngIf="!lowWidth">{{connexion.getpseudo()}}</span>
       
     </a>
     <a aria-label="deconnexion" (click)="connexion.disconnect()" title="Déconnexion" *ngIf="connexion.isconnected()">

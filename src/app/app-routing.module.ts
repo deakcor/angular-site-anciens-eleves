@@ -2,22 +2,20 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AccueilComponent } from './accueil/accueil.component';
-import { EtudiantComponent } from './etudiant/etudiant.component';
 import { ConnexionComponent } from './connexion/connexion.component';
-import { AuthGuard } from './services/auth.guard';
 import { RgpdComponent } from './rgpd/rgpd.component';
 import { NotfoundComponent } from './notfound/notfound.component';
-import { StatsComponent } from './stats/stats.component';
+
 
 
 
 const routes: Routes = [
   {path:'accueil',component:AccueilComponent},
-  {path:'etudiant/:id',component:EtudiantComponent, canActivate:[AuthGuard]},
-  {path:'etudiant',component:EtudiantComponent, canActivate:[AuthGuard]},
+  { path: "extranet", loadChildren: () => import('./extranet/extranet.module').then(m => m.ExtranetModule) },
+  
   {path:'connexion',component:ConnexionComponent},
   {path:'rgpd',component:RgpdComponent},
-  {path:'statistiques',component:StatsComponent, canActivate:[AuthGuard]},
+  
   { path: '404', component: NotfoundComponent },
   { path: '**', redirectTo: '404' },
   { path: '', redirectTo: 'accueil',pathMatch: 'full' }

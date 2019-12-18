@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import {EtudiantService} from '../services/etudiant.service';
 import {MatSort} from '@angular/material/sort';
-import { ConnexionService } from '../services/connexion.service';
-import { CreateEtudiantComponent } from '../create-etudiant/create-etudiant.component';
+
 import { MatDialog } from '@angular/material';
-import { FirebaseService } from '../services/firebase.service';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import { ConnexionService } from 'src/app/services/connexion.service';
+import { EtudiantService } from 'src/app/services/etudiant.service';
+import { CreateEtudiantComponent } from 'src/app/create-etudiant/create-etudiant.component';
+
 
 
 @Component({
@@ -58,7 +60,7 @@ export class EtudiantComponent implements OnInit {
       this.connexion.disconnect()
       this.router.navigate(['/accueil']);
     }else{
-      this.router.navigate(['/etudiant']);
+      this.router.navigate(['extranet/etudiant']);
     }
     
     

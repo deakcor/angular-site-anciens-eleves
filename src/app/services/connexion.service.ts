@@ -25,6 +25,14 @@ export class ConnexionService {
     return this.id;
   }
 
+  getpseudo(){
+    if (this.id!=""){
+      return this.data.pseudo
+    }else{
+      return ""
+    }
+  }
+
   isadmin(){
     if (this.id!=""){
       return this.data.admin

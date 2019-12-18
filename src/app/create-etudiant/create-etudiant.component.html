@@ -4,6 +4,7 @@
   <p>Choisissez un pseudonyme et un mot de passe</p>
   <mat-form-field>
     <input matInput [(ngModel)]="data.pseudo" placeholder="Pseudo" class="form-control" required>
+    
   </mat-form-field>
   <br>
     <mat-form-field>
@@ -25,7 +26,6 @@
         class="slider"
         thumbLabel
         [(ngModel)]="data.promo"
-        [displayWith]="formatLabel"
         tickInterval="1"
         min="2000"
         max="2020"></mat-slider>

@@ -1,11 +1,16 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {User} from '../interface/user'
 import { ConnexionService } from '../services/connexion.service';
 import {Router} from "@angular/router"
-import { CreateEtudiantComponent } from '../create-etudiant/create-etudiant.component';
 import { MatDialog } from '@angular/material/dialog';
 import { FirebaseService } from '../services/firebase.service';
+import { CreateEtudiantComponent } from '../create-etudiant/create-etudiant.component';
 
+
+
+export interface User {
+  id: string;
+  pwd: string;
+}
 
 @Component({
   selector: 'app-connexion',
@@ -39,7 +44,7 @@ export class ConnexionComponent implements OnInit {
           }
           
           if (this.connexion.isconnected()){
-            this.router.navigate(['/etudiant']);
+            this.router.navigate(['extranet/etudiant']);
           }else{
             this.error=true;
             this.created=false;
@@ -57,6 +62,7 @@ export class ConnexionComponent implements OnInit {
     const dialogRef = this.dialog.open(CreateEtudiantComponent, {
       width: '600px',
       data: {pseudo: this.identification.id, mdp: this.identification.pwd,nom:"",prenom:"",promo:2000,entreprise:"",showpromo:false,showentreprise:false,admin:false}
+    
     });
 
     dialogRef.afterClosed().subscribe(result => {

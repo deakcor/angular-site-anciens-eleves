@@ -8,25 +8,26 @@ import { AccueilComponent } from './accueil/accueil.component';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { FooterComponent } from './footer/footer.component';
 import { TopbarComponent } from './topbar/topbar.component';
-import { EtudiantComponent } from './etudiant/etudiant.component';
+
 import {HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { AngularFireModule } from '@angular/fire';
+import { AngularFireModule, FirebaseOptionsToken } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { ConnexionService } from './services/connexion.service';
-import { CreateEtudiantComponent } from './create-etudiant/create-etudiant.component';
+
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatInputModule, MatRadioModule, MatCheckboxModule, MatCardModule, MatSliderModule} from '@angular/material';
 import { RgpdComponent } from './rgpd/rgpd.component';
 import { NotfoundComponent } from './notfound/notfound.component';
-import {  HighchartsChartModule } from 'highcharts-angular';
-import { StatsComponent } from './stats/stats.component';
+
+
 import { EtudiantsPipe } from './services/etudiants.pipe';
 import { environment } from 'src/environments/environment';
+import { CreateEtudiantComponent } from './create-etudiant/create-etudiant.component';
 
 @NgModule({
   declarations: [
@@ -35,18 +36,17 @@ import { environment } from 'src/environments/environment';
     ConnexionComponent,
     FooterComponent,
     TopbarComponent,
-    EtudiantComponent,
-    CreateEtudiantComponent,
+    
     RgpdComponent,
     NotfoundComponent,
-    StatsComponent,
+    CreateEtudiantComponent,
     EtudiantsPipe
     
   ],
-
   entryComponents: [
     CreateEtudiantComponent
   ],
+  
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -63,11 +63,12 @@ import { environment } from 'src/environments/environment';
     MatCheckboxModule,
     MatCardModule,
     MatSliderModule,
-    HighchartsChartModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    
+    AngularFireModule,
     AngularFirestoreModule
   ],
-  providers: [ConnexionService],
+  providers: [ConnexionService,
+    { provide: FirebaseOptionsToken, useValue: environment.firebase }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -15,7 +15,7 @@ export class TopbarComponent implements OnInit {
   lowWidth:boolean=false
   image:string;
   constructor(public connexion:ConnexionService,public router:Router,public etuServ:EtudiantService) {
-    this.image="https://eisti.fr/sites/all/themes/eisti/assets/images/logo.gif";
+    this.image="../../assets/logo.png";
    }
   onResize(event){
     this.lowWidth=event.target.innerWidth<700

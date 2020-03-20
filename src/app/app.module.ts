@@ -20,9 +20,10 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { ConnexionService } from './services/connexion.service';
 
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatInputModule, MatRadioModule, MatCheckboxModule, MatCardModule, MatSliderModule} from '@angular/material';
+import {MatInputModule, MatRadioModule, MatCheckboxModule, MatCardModule, MatSliderModule, MatDividerModule} from '@angular/material';
 import { RgpdComponent } from './rgpd/rgpd.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+
 
 
 import { EtudiantsPipe } from './services/etudiants.pipe';
@@ -63,6 +64,9 @@ import { CreateEtudiantComponent } from './create-etudiant/create-etudiant.compo
     MatCheckboxModule,
     MatCardModule,
     MatSliderModule,
+    MatDividerModule,
+    
+    
     
     AngularFireModule,
     AngularFirestoreModule

@@ -6,29 +6,29 @@
       [src]="image"
     /></a>
     
-    <a href routerLink="/accueil" title="Accueil" ><span *ngIf="!lowWidth">Accueil</span><mat-icon *ngIf="lowWidth" aria-hidden="false" aria-label="home">home</mat-icon></a>
-    <a href routerLink="/extranet/etudiant" title="Etudiants"  *ngIf="connexion.isconnected()">
-      <span *ngIf="!lowWidth">Etudiants</span><mat-icon *ngIf="lowWidth" aria-hidden="false" aria-label="people">people</mat-icon></a>
-    <a href routerLink="/extranet/statistiques"  title="Statistiques" *ngIf="connexion.isadmin()">
-      <span *ngIf="!lowWidth">Statistiques</span><mat-icon *ngIf="lowWidth" aria-hidden="false" aria-label="bar_chart">bar_chart</mat-icon></a>
+    <a *ngIf="!lowWidth" href routerLink="/accueil" title="Accueil" ><span>Accueil</span></a>
+    <a href routerLink="/extranet/etudiant" title="Etudiants"  *ngIf="connexion.isconnected() && !lowWidth">
+      <span>Etudiants</span></a>
+    <a href routerLink="/extranet/statistiques"  title="Statistiques" *ngIf="connexion.isadmin() && !lowWidth">
+      <span>Statistiques</span></a>
       <div class="spacer"></div>
     
-    <a aria-label="connexion" href routerLink="/connexion" title="connexion" *ngIf="!connexion.isconnected() && router.url!='/connexion'">
+    <a aria-label="connexion" href routerLink="/connexion" title="connexion" *ngIf="!lowWidth && !connexion.isconnected() && router.url!='/connexion'">
       
       <mat-icon aria-hidden="false" aria-label="connexion">exit_to_app</mat-icon>
       <span>Connexion</span>
       
     </a>
-    <a aria-label="profil" href [routerLink]="['/extranet/etudiant',connexion.getpseudo()]" title="Profil" *ngIf="connexion.isconnected()">
+    <a aria-label="profil" href [routerLink]="['/extranet/etudiant',connexion.getpseudo()]" title="Profil" *ngIf="connexion.isconnected() && !lowWidth">
 
       <mat-icon aria-hidden="false" aria-label="person">person</mat-icon>
-      <span *ngIf="!lowWidth">{{connexion.getpseudo()}}</span>
+      <span>{{connexion.getpseudo()}}</span>
       
     </a>
-    <a aria-label="deconnexion" (click)="connexion.disconnect()" title="Déconnexion" *ngIf="connexion.isconnected()">
+    <a aria-label="deconnexion" (click)="connexion.disconnect()" title="Déconnexion" *ngIf="connexion.isconnected() && !lowWidth">
 
       <mat-icon aria-hidden="false" aria-label="deconnexion">close</mat-icon>
-      <span *ngIf="!lowWidth">Déconnexion</span>
+      <span>Déconnexion</span>
       
     </a>
   </div>

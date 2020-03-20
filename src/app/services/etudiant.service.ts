@@ -109,10 +109,14 @@ export class EtudiantService {
     this.firebaseService.getEtudiants().subscribe(
       r=>{
         this.etudiants=[];
+        let data=[]
         for (let element of r){
           this.etudiants.push(element.payload.doc.data())
+          let e=element.payload.doc.data();
+          e["nom"]=e["nom"]+" "+e["prenom"]
+          data.push(e)
         }
-        this.dataSource=  new MatTableDataSource(this.etudiants);
+        this.dataSource=  new MatTableDataSource(data);
         this.reset_graph();
       }
         

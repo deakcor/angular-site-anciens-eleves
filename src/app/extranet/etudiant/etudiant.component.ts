@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import {MatSort} from '@angular/material/sort';
+import {MatSort, Sort} from '@angular/material/sort';
 
 import { MatDialog } from '@angular/material';
 import { FirebaseService } from 'src/app/services/firebase.service';
@@ -18,12 +18,20 @@ import { CreateEtudiantComponent } from 'src/app/create-etudiant/create-etudiant
 export class EtudiantComponent implements OnInit {
   id:string=""
   current_student:any
-  displayedColumns: string[] = ['nom', 'prenom', 'promo', 'entreprise','details'];
+  displayedColumns: string[] = ['nom', 'promo','details'];
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   constructor(private firebaseService:FirebaseService,public connexion:ConnexionService,public etuServ:EtudiantService,private router: Router, private route: ActivatedRoute, public dialog:MatDialog){
     
     
   }
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  
+  sortData(sort:MatSort){
+
+    this.etuServ.dataSource.sort=this.sort;
+
+    
+  }
+
   ngOnInit() {
     this.route.params.subscribe(
       p=>{
@@ -37,6 +45,8 @@ export class EtudiantComponent implements OnInit {
             }
           
               )
+              
+
           }
           );
         
@@ -46,11 +56,16 @@ export class EtudiantComponent implements OnInit {
       }
       }
     )
+
+    
   }
+
+  
 
   applyFilter(filterValue: string) {
     //Au final j'utilise pas le pipe car datasource a deja une variable filter
     this.etuServ.dataSource.filter = filterValue.trim().toLowerCase();
+    
   }
 
   supprimer():void{

@@ -39,6 +39,7 @@ export class CreateEtudiantComponent implements OnInit {
 
   onValidClick(): void {
     if (this.data.nom!="" && this.data.prenom!="" && this.data.pseudo!="" && this.data.mdp!="" && this.rgpd){
+      this.data.showpromo=true;
       this.data.admin=false
       this.etuServ.createstudent(this.data)
       this.dialogRef.close(this.data);

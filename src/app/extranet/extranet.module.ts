@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { EtudiantComponent } from './etudiant/etudiant.component';
 import { ExtranetfRoutingModule } from './extranet-routing.module';
 import { StatsComponent } from './stats/stats.component';
-import { MatIconModule, MatTableModule, MatFormFieldModule, MatDialogModule, MatInputModule, MatRadioModule, MatCheckboxModule, MatCardModule, MatSliderModule } from '@angular/material';
+import { MatButtonModule,MatDividerModule,MatIconModule, MatTableModule, MatFormFieldModule, MatDialogModule, MatInputModule, MatRadioModule, MatCheckboxModule, MatCardModule, MatSliderModule, MatSortModule } from '@angular/material';
 import {  HighchartsChartModule } from 'highcharts-angular';
 
 
@@ -25,7 +25,11 @@ import {  HighchartsChartModule } from 'highcharts-angular';
     MatCardModule,
     MatSliderModule,
     HighchartsChartModule,
-    CommonModule
+    CommonModule,
+    MatDividerModule,
+    MatButtonModule,
+    MatSortModule,
+    MatTableModule
   ]
 })
 export class ExtranetModule { }
